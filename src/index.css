@@ -1,9 +1,57 @@
-* {
-  margin: 0;
-  padding: 0;
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0D0D0D;
+  --color-surface: #161616;
+  --color-gold: #F0A500;
+  --color-text: #F0EDE8;
+  --color-muted: #555555;
+  --color-border: #222222;
+}
+
+/* Reset */
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
+*:not(dialog) {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
 body {
-  font-family: sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-color: #0D0D0D;
+  color: #F0EDE8;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+#root, #__next {
+  isolation: isolate;
 }
