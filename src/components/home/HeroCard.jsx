@@ -1,13 +1,13 @@
 import React from "react";
 
-const HeroCard = () => {
+const HeroCard = ({className}) => {
   const tags = ["React", "Node", "Figma", "Tailwind"];
   return (
-    <div>
+   <div className={`bg-surface rounded-xl border border-border p-6 flex flex-col gap-3 ${className}`}>
       <span className="text-gold text-xs tracking-widest">
         AVAILABLE FOR WORK
       </span>
-      <h1>
+<h1 className="text-4xl font-bold text-text">
         Building things that <span className="text-gold underline">matter</span>
       </h1>
       <p className="text-muted">
