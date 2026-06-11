@@ -4,7 +4,7 @@ const HeroCard = ({ className }) => {
   const tags = ["React", "Node", "Figma", "Tailwind"];
   return (
     <div
-      className={`bg-surface rounded-xl border border border-gold p-6 flex flex-col gap-3 ${className}`}
+      className={`bg-surface rounded-xl border  border-gold p-6 flex flex-col gap-3 ${className}`}
     >
       <span className="text-gold text-xs tracking-widest">
         AVAILABLE FOR WORK
