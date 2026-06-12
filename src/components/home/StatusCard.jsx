@@ -3,7 +3,7 @@ import React from "react";
 const StatusCard = ({ className }) => {
   return (
     <div
-      className={`bg-surface rounded-xl border border border-gold p-6 flex flex-col gap-3 ${className}`}
+      className={`bg-surface rounded-xl border border-gold p-6 flex flex-col gap-3 h-80 justify-between ${className}`}
     >
       <span className="text-gold text-xs tracking-widest">Status</span>
       <div className="flex items-center gap-2">

@@ -3,7 +3,7 @@ import React from "react";
 const ProjectCard = ({ title, image, className }) => {
   return (
     <div
-      className={`bg-surface rounded-xl border border-gold p-6 flex flex-col gap-3 ${className}`}
+      className={`bg-surface rounded-xl border border-gold p-6 flex flex-col gap-3 h-80 justify-between ${className}`}
     >
       {image ? (
         <img
@@ -12,13 +12,15 @@ const ProjectCard = ({ title, image, className }) => {
           className="w-full h-40 object-cover rounded-lg"
         />
       ) : (
-        <div className="border-2 border-dashed border-muted rounded-lg h-40 flex items-center justify-center">
-          <span className="text-muted text-sm">Project Preview</span>
+        <div className="bg-bg border-dashed border-1 border-muted rounded-lg h-40 flex items-center justify-center">
+          <span className="text-muted text-xs tracking-widest">
+            PROJECT PREVIEW
+          </span>
         </div>
       )}
-      <div>
+      <div className="flex flex-col gap-1">
         <p className="text-gold text-xs tracking-widest">FEATURED PROJECT</p>
-        <p>{title}</p>
+        <p className="text-text">{title}</p>
       </div>
     </div>
   );

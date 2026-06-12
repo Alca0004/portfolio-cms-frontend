@@ -10,7 +10,7 @@ const SkillsCard = ({ className }) => {
 
   return (
     <div
-      className={`bg-surface rounded-xl border  border-gold p-6 flex flex-col gap-3 ${className}`}
+      className={`bg-surface rounded-xl border border-gold p-6 flex flex-col gap-3 h-80 justify-between ${className}`}
     >
       <span className="text-gold text-xs tracking-widest">STATUS</span>
       {skills.map((skill) => (
