@@ -4,6 +4,8 @@ import ProjectCard from "../components/home/ProjectCard";
 import StatusCard from "../components/home/StatusCard";
 import SkillsCard from "../components/home/SkillsCard";
 import BioCard from "../components/home/BioCard";
+import MusicCard from "../components/home/MusicCard";
+import CTACard from "../components/home/CTACard";
 
 const Home = () => {
   return (
@@ -15,7 +17,9 @@ const Home = () => {
       <ProjectCard className="col-span-2" title="Portfolio HTML" />
       <ProjectCard className="col-span-1" title="Figma / Design" />
       <SkillsCard className="col-span-1" />
-      <BioCard className="col-span-2" />
+      <BioCard className="col-span-1" />
+      <MusicCard className="col-span-1" />
+      <CTACard className="col-span-2" />
     </div>
   );
 };
