@@ -14,8 +14,16 @@ const Home = () => {
       <HeroCard className="col-span-2" />
       <PhotoCard className="col-span-1" />
       <StatusCard className="col-span-1" />
-      <ProjectCard className="col-span-2" title="Portfolio HTML" />
-      <ProjectCard className="col-span-1" title="Figma / Design" />
+      <ProjectCard
+        className="col-span-2"
+        title="Portfolio CMS"
+        description="A full stack portfolio manager built with React, Node and MongoDB."
+      />
+      <ProjectCard
+        className="col-span-1"
+        title="Figma / Design"
+        description="UI/UX design work and prototypes built in Figma."
+      />
       <SkillsCard className="col-span-1" />
       <BioCard className="col-span-1" />
       <MusicCard className="col-span-1" />

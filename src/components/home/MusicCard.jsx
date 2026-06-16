@@ -3,7 +3,7 @@ import React from "react";
 const MusicCard = ({ className }) => {
   return (
     <div
-      className={`bg-surface rounded-xl border border-gold p-6 flex flex-col gap-3 ${className}`}
+      className={`bg-surface rounded-xl border border-gold p-6 flex flex-col gap-3 h-full ${className}`}
     >
       <span className="text-gold text-xs tracking-widest">
         CURRENTLY LISTENING

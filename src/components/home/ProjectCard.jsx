@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProjectCard = ({ title, image, className }) => {
+const ProjectCard = ({ title, image, description, className }) => {
   return (
     <div
       className={`bg-surface rounded-xl border border-gold p-6 flex flex-col gap-3 h-80 justify-between ${className}`}
@@ -22,6 +22,7 @@ const ProjectCard = ({ title, image, className }) => {
         <p className="text-gold text-xs tracking-widest">FEATURED PROJECT</p>
         <p className="text-text">{title}</p>
       </div>
+      <p className="text-muted text-sm">{description}</p>
     </div>
   );
 };
