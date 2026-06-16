@@ -11,7 +11,7 @@ const Register = () => {
             <label className="text-gold text-xs tracking-widest">NAME</label>
             <input
               type="text"
-              placeholder="Aaron Smith"
+              placeholder="Aaron Alcala"
               className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold"
             />
           </div>
