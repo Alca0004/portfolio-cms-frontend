@@ -7,6 +7,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ const Register = () => {
       });
       navigate("/login");
     } catch (error) {
-      console.error("Login failed:", error);
+      setError("Email already exists");
     }
   };
 
@@ -67,6 +68,11 @@ const Register = () => {
               className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold"
             />
           </div>
+          {error && (
+            <p className="text-sm" style={{ color: "#ef4444" }}>
+              {error}
+            </p>
+          )}
           <button
             className="w-full bg-gold text-bg font-bold py-3 rounded-lg"
             type="submit"
