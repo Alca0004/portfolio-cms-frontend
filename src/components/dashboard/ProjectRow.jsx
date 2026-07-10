@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProjectRow = ({ title, techStack, status }) => {
+const ProjectRow = ({ title, techStack, status, onDelete }) => {
   return (
     <div className="flex items-center justify-between p-4 bg-surface border border-border rounded-xl">
       <div>
@@ -16,7 +16,10 @@ const ProjectRow = ({ title, techStack, status }) => {
         <button className="border border-border text-muted text-xs px-3 py-1 rounded-lg">
           Edit
         </button>
-        <button className="border border-red-500 text-red-500 text-xs px-3 py-1 rounded-lg">
+        <button
+          onClick={onDelete}
+          className="border border-red-500 text-red-500 text-xs px-3 py-1 rounded-lg"
+        >
           Delete
         </button>
       </div>

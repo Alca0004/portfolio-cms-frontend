@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const { login } = useAuth();
@@ -61,9 +62,9 @@ const Login = () => {
         </form>
         <p className="text-muted text-sm text-center">
           Don't have an account?{" "}
-          <a className="text-gold hover:underline" href="/register">
+          <Link to="/register" className="text-gold hover:underline">
             Register →
-          </a>
+          </Link>
         </p>
       </div>
     </div>

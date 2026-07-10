@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import StatCard from "../components/dashboard/StatCard";
 import ProjectRow from "../components/dashboard/ProjectRow";
 import api from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
+  const { token } = useAuth();
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const response = await api.get("/projects");
-      console.log(response.data); // 👈 add this
-      setProjects(response.data);
       try {
         const response = await api.get("/projects");
         setProjects(response.data);
@@ -20,6 +19,17 @@ const Dashboard = () => {
     };
     fetchProjects();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`/projects/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProjects(projects.filter((p) => p._id !== id));
+    } catch (error) {
+      console.error("Failed to delete:", error);
+    }
+  };
 
   const totalProjects = projects.length;
   const published = projects.filter((p) => p.published === true).length;
@@ -47,6 +57,7 @@ const Dashboard = () => {
             title={project.title}
             techStack={project.techStack.join(" · ")}
             status={project.published ? "Published" : "Draft"}
+            onDelete={() => handleDelete(project._id)}
           />
         ))}
       </div>
