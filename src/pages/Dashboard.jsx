@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import StatCard from "../components/dashboard/StatCard";
 import ProjectRow from "../components/dashboard/ProjectRow";
+import api from "../services/api";
 
 const Dashboard = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const response = await api.get("/projects");
+      console.log(response.data); // 👈 add this
+      setProjects(response.data);
+      try {
+        const response = await api.get("/projects");
+        setProjects(response.data);
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      }
+    };
+    fetchProjects();
+  }, []);
   return (
     <div className="p-8 flex flex-col gap-6">
       <div className="grid grid-cols-3 gap-4">
@@ -19,21 +36,14 @@ const Dashboard = () => {
       </div>
 
       <div className="flex flex-col gap-3">
-        <ProjectRow
-          title="Portfolio CMS"
-          techStack="React · Node · MongoDB"
-          status="Published"
-        />
-        <ProjectRow
-          title="Figma Design"
-          techStack="Figma · Design"
-          status="Draft"
-        />
-        <ProjectRow
-          title="Portfolio HTML"
-          techStack="HTML · CSS"
-          status="Published"
-        />
+        {projects.map((project) => (
+          <ProjectRow
+            key={project._id}
+            title={project.title}
+            techStack={project.techStack.join(" · ")}
+            status={project.published ? "Published" : "Draft"}
+          />
+        ))}
       </div>
     </div>
   );
