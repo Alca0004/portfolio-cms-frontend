@@ -20,12 +20,17 @@ const Dashboard = () => {
     };
     fetchProjects();
   }, []);
+
+  const totalProjects = projects.length;
+  const published = projects.filter((p) => p.published === true).length;
+  const drafts = projects.filter((p) => p.published === false).length;
+
   return (
     <div className="p-8 flex flex-col gap-6">
       <div className="grid grid-cols-3 gap-4">
-        <StatCard label="TOTAL PROJECTS" value="3" />
-        <StatCard label="PUBLISHED" value="2" />
-        <StatCard label="DRAFTS" value="1" />
+        <StatCard label="TOTAL PROJECTS" value={totalProjects} />
+        <StatCard label="PUBLISHED" value={published} />
+        <StatCard label="DRAFTS" value={drafts} />
       </div>
 
       <div className="flex justify-between items-center">
