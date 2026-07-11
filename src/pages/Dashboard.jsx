@@ -7,6 +7,33 @@ import { useAuth } from "../context/AuthContext";
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
   const { token } = useAuth();
+  const [showModal, setShowModal] = useState(false);
+  const [newProject, setNewProject] = useState({
+    title: "",
+    description: "",
+    techStack: "",
+  });
+
+  const handleCreate = async () => {
+    try {
+      const response = await api.post(
+        "/projects",
+        {
+          title: newProject.title,
+          description: newProject.description,
+          techStack: newProject.techStack.split(",").map((t) => t.trim()),
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      setProjects([...projects, response.data]);
+      setShowModal(false);
+      setNewProject({ title: "", description: "", techStack: "" });
+    } catch (error) {
+      console.error("Failed to create project:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -45,7 +72,10 @@ const Dashboard = () => {
 
       <div className="flex justify-between items-center">
         <p className="text-text font-bold text-lg">Your Projects</p>
-        <button className="bg-gold text-bg font-bold py-2 px-4 rounded-lg">
+        <button
+          onClick={() => setShowModal(true)}
+          className="bg-gold text-bg font-bold py-2 px-4 rounded-lg"
+        >
           + New Project
         </button>
       </div>
@@ -61,6 +91,67 @@ const Dashboard = () => {
           />
         ))}
       </div>
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+          <div className="bg-surface border border-gold rounded-xl p-8 w-full max-w-md flex flex-col gap-4">
+            <div className="flex justify-between items-center">
+              <h2 className="text-text font-bold text-lg">New Project</h2>
+              <button
+                onClick={() => setShowModal(false)}
+                className="text-muted hover:text-gold"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-gold text-xs tracking-widest">TITLE</label>
+              <input
+                type="text"
+                value={newProject.title}
+                onChange={(e) =>
+                  setNewProject({ ...newProject, title: e.target.value })
+                }
+                className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold"
+                placeholder="Project title"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-gold text-xs tracking-widest">
+                DESCRIPTION
+              </label>
+              <textarea
+                rows={3}
+                value={newProject.description}
+                onChange={(e) =>
+                  setNewProject({ ...newProject, description: e.target.value })
+                }
+                className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold resize-none"
+                placeholder="Project description"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-gold text-xs tracking-widest">
+                TECH STACK
+              </label>
+              <input
+                type="text"
+                value={newProject.techStack}
+                onChange={(e) =>
+                  setNewProject({ ...newProject, techStack: e.target.value })
+                }
+                className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold"
+                placeholder="React, Node, MongoDB"
+              />
+            </div>
+            <button
+              onClick={handleCreate}
+              className="w-full bg-gold text-bg font-bold py-3 rounded-lg"
+            >
+              Create Project →
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
