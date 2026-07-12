@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3000/api',
-})
+  baseURL: 'https://portfolio-cms-backend-ubc8.onrender.com/api',
+});
 
 export default api
