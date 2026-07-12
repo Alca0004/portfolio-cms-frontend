@@ -20,13 +20,16 @@ const CTACard = ({ className }) => {
         <a href="https://github.com/Alca0004" target="_blank">
           <FaGithub className="text-muted hover:text-gold text-2xl" />
         </a>
-        <a href="#" target="_blank">
+        <a href="https://www.instagram.com/aah_0790" target="_blank">
           <FaLinkedin className="text-muted hover:text-gold text-2xl" />
         </a>
-        <a href="#" target="_blank">
+        <a
+          href="https://www.linkedin.com/in/aaron-alcala-harkness-0b14bb154/"
+          target="_blank"
+        >
           <FaInstagram className="text-muted hover:text-gold text-2xl" />
         </a>
-        <a href="mailto:your@email.com">
+        <a href="mailto:alca0004@gmail.com">
           <MdEmail className="text-muted hover:text-gold text-2xl" />
         </a>
       </div>
