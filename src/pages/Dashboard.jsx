@@ -3,6 +3,7 @@ import StatCard from "../components/dashboard/StatCard";
 import ProjectRow from "../components/dashboard/ProjectRow";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import Navbar from "../components/Navbar";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -12,9 +13,12 @@ const Dashboard = () => {
     title: "",
     description: "",
     techStack: "",
+    published: false,
   });
 
   const handleCreate = async () => {
+    console.log("Token:", token);
+    console.log("Auth header:", `Bearer ${token}`);
     try {
       const response = await api.post(
         "/projects",
@@ -22,6 +26,7 @@ const Dashboard = () => {
           title: newProject.title,
           description: newProject.description,
           techStack: newProject.techStack.split(",").map((t) => t.trim()),
+          published: newProject.published,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -63,95 +68,120 @@ const Dashboard = () => {
   const drafts = projects.filter((p) => p.published === false).length;
 
   return (
-    <div className="p-8 flex flex-col gap-6">
-      <div className="grid grid-cols-3 gap-4">
-        <StatCard label="TOTAL PROJECTS" value={totalProjects} />
-        <StatCard label="PUBLISHED" value={published} />
-        <StatCard label="DRAFTS" value={drafts} />
-      </div>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <div className="p-8 flex flex-col gap-6">
+        <div className="grid grid-cols-3 gap-4">
+          <StatCard label="TOTAL PROJECTS" value={totalProjects} />
+          <StatCard label="PUBLISHED" value={published} />
+          <StatCard label="DRAFTS" value={drafts} />
+        </div>
 
-      <div className="flex justify-between items-center">
-        <p className="text-text font-bold text-lg">Your Projects</p>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-gold text-bg font-bold py-2 px-4 rounded-lg"
-        >
-          + New Project
-        </button>
-      </div>
+        <div className="flex justify-between items-center">
+          <p className="text-text font-bold text-lg">Your Projects</p>
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-gold text-bg font-bold py-2 px-4 rounded-lg"
+          >
+            + New Project
+          </button>
+        </div>
 
-      <div className="flex flex-col gap-3">
-        {projects.map((project) => (
-          <ProjectRow
-            key={project._id}
-            title={project.title}
-            techStack={project.techStack.join(" · ")}
-            status={project.published ? "Published" : "Draft"}
-            onDelete={() => handleDelete(project._id)}
-          />
-        ))}
-      </div>
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-          <div className="bg-surface border border-gold rounded-xl p-8 w-full max-w-md flex flex-col gap-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-text font-bold text-lg">New Project</h2>
+        <div className="flex flex-col gap-3">
+          {projects.map((project) => (
+            <ProjectRow
+              key={project._id}
+              title={project.title}
+              techStack={project.techStack.join(" · ")}
+              status={project.published ? "Published" : "Draft"}
+              onDelete={() => handleDelete(project._id)}
+            />
+          ))}
+        </div>
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+            <div className="bg-surface border border-gold rounded-xl p-8 w-full max-w-md flex flex-col gap-4">
+              <div className="flex justify-between items-center">
+                <h2 className="text-text font-bold text-lg">New Project</h2>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="text-muted hover:text-gold"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-gold text-xs tracking-widest">
+                  TITLE
+                </label>
+                <input
+                  type="text"
+                  value={newProject.title}
+                  onChange={(e) =>
+                    setNewProject({ ...newProject, title: e.target.value })
+                  }
+                  className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold"
+                  placeholder="Project title"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-gold text-xs tracking-widest">
+                  DESCRIPTION
+                </label>
+                <textarea
+                  rows={3}
+                  value={newProject.description}
+                  onChange={(e) =>
+                    setNewProject({
+                      ...newProject,
+                      description: e.target.value,
+                    })
+                  }
+                  className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold resize-none"
+                  placeholder="Project description"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-gold text-xs tracking-widest">
+                  TECH STACK
+                </label>
+                <input
+                  type="text"
+                  value={newProject.techStack}
+                  onChange={(e) =>
+                    setNewProject({ ...newProject, techStack: e.target.value })
+                  }
+                  className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold"
+                  placeholder="React, Node, MongoDB"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="published"
+                  checked={newProject.published}
+                  onChange={(e) =>
+                    setNewProject({
+                      ...newProject,
+                      published: e.target.checked,
+                    })
+                  }
+                  className="accent-gold"
+                />
+                <label htmlFor="published" className="text-muted text-sm">
+                  Publish this project
+                </label>
+              </div>
               <button
-                onClick={() => setShowModal(false)}
-                className="text-muted hover:text-gold"
+                onClick={handleCreate}
+                className="w-full bg-gold text-bg font-bold py-3 rounded-lg"
               >
-                ✕
+                Create Project →
               </button>
             </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-gold text-xs tracking-widest">TITLE</label>
-              <input
-                type="text"
-                value={newProject.title}
-                onChange={(e) =>
-                  setNewProject({ ...newProject, title: e.target.value })
-                }
-                className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold"
-                placeholder="Project title"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-gold text-xs tracking-widest">
-                DESCRIPTION
-              </label>
-              <textarea
-                rows={3}
-                value={newProject.description}
-                onChange={(e) =>
-                  setNewProject({ ...newProject, description: e.target.value })
-                }
-                className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold resize-none"
-                placeholder="Project description"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-gold text-xs tracking-widest">
-                TECH STACK
-              </label>
-              <input
-                type="text"
-                value={newProject.techStack}
-                onChange={(e) =>
-                  setNewProject({ ...newProject, techStack: e.target.value })
-                }
-                className="bg-bg border border-border rounded-lg p-3 text-text outline-none focus:border-gold"
-                placeholder="React, Node, MongoDB"
-              />
-            </div>
-            <button
-              onClick={handleCreate}
-              className="w-full bg-gold text-bg font-bold py-3 rounded-lg"
-            >
-              Create Project →
-            </button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
