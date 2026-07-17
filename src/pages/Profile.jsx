@@ -8,7 +8,7 @@ const Profile = () => {
     <div className="min-h-screen">
       <Navbar />
       <div className="p-8">
-        <div className="grid grid-cols-2 gap-4 w-full max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-5xl mx-auto">
           {/* Left Card */}
           <div className="bg-surface border border-gold rounded-xl p-8 flex flex-col gap-4">
             <div className="flex items-center gap-4">

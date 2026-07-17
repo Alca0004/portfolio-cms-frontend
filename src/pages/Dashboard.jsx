@@ -68,7 +68,7 @@ const Dashboard = () => {
   const drafts = projects.filter((p) => p.published === false).length;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <Navbar />
       <div className="p-8 flex flex-col gap-6">
         <div className="grid grid-cols-3 gap-4">

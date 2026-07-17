@@ -26,9 +26,9 @@ const Home = () => {
     fetchProjects();
   }, []);
   return (
-    <div className="grid grid-cols-4 gap-4 p-4 items-start">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 items-start">
       {" "}
-      <HeroCard className="col-span-2" />
+      <HeroCard className="col-span-1 md:col-span-2" />
       <PhotoCard className="col-span-1" />
       <StatusCard className="col-span-1" />
       {publishedProjects.map((project) => (
@@ -43,7 +43,7 @@ const Home = () => {
       <SkillsCard className="col-span-1" />
       <BioCard className="col-span-1" />
       <MusicCard className="col-span-1" />
-      <CTACard className="col-span-2" />
+      <CTACard className="col-span-1 md:col-span-2" />
     </div>
   );
 };
